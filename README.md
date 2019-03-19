@@ -69,14 +69,14 @@ Make a note of the `http` URL ngrok provides.
 Next head over to the Stripe [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area, add a new webhook with the following details:
 
 ```
-'URL to be called': <'ngrok URL above'>
+'URL to be called': <ngrok URL above>
 
 'Webhook version': '2018-05-21 (Default)'
 
 'Filter event': 'Select types to send' > 'charge.refunded'
 ```
 
-⚠️ Each time a `charge` is `refunded` this function will be called, only need to update moltin if fully refunded (TODO: may want to add transactions for others).
+⚠️ Each time a `charge` is `refunded` this function will be called, but it will only call moltin to update order if 'fully refunded' in Stripe (TODO: if Moltin add support for order.payment = partial_refund then can update to handle).
 
 ## 🚀 Deploy
 
