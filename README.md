@@ -1,6 +1,6 @@
 # moltin-shippo-tracking
 
-> 📦 Update orders with current delivery status by Shippo
+> 📦 Update order payment status when refunded in Stripe
 
 Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [Moltin](https://moltin.com). Built with [Micro](https://github.com/zeit/micro) 🤩
 
