@@ -7,5 +7,11 @@
     "MOLTIN_CLIENT_SECRET": "@demo-moltin-client-secret",
     "STRIPE_SECRET_KEY": "@demo-stripe-secret-key",
     "STRIPE_WEBHOOK_SECRET": "@demo-stripe-webhook-secret"
-  }
+  },
+  "builds": [
+    {
+      "src": "*.js",
+      "use": "@now/node"
+    }
+  ]
 }

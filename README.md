@@ -58,7 +58,7 @@ The server will typically start on PORT `3000`, if not, make a note for the next
 
 This will expose PORT `3000` to the outside world. 
 
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/uniquelyparticular/sync-stripe-to-moltin&env=MOLTIN_CLIENT_ID&env=MOLTIN_CLIENT_SECRET&env=STRIPE_SECRET_KEY&env=STRIPE_WEBHOOK_SECRET)
+[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/uniquelyparticular/sync-stripe-to-moltin)
 
 Once you have the function deployed, take a note of the immutable `now.sh` URL.
 
