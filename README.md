@@ -6,7 +6,7 @@ Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webh
 
 ### Prerequisite
 
-When making calls to 'moltin.Orders.payment', please ensure payload contains 'metadata' containing order and customer data
+When making calls to 'moltin.Orders.Payment', please ensure payload contains 'metadata' containing order and customer data
 
 ```
 const payload = {
