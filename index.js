@@ -53,8 +53,6 @@ module.exports = cors(async (req, res) => {
         }
       }
     } = await stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
-    send(res, 200, JSON.stringify({received: true})) // immediately respond back w/ 200, then continue processing
-    // continue processing this event before return
     console.error('type',type)
     console.error('status',status)
     console.error('refunded',refunded)
@@ -72,14 +70,22 @@ module.exports = cors(async (req, res) => {
             transaction: moltinTransaction.id
           }).then(moltinRefund => {
             console.error('moltinRefund',moltinRefund)
-          }).catch(error=>console.error(error))
-        }).catch(error=>console.error(error))
+            return send(res, 200, JSON.stringify({received: true}))
+          }).catch(error => {
+            console.error(error)
+            const jsonError = toJSON(error);
+            return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
+          })
+        }).catch(error => {
+          console.error(error)
+          const jsonError = toJSON(error);
+          return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
+        })
       }
-
-      return
     }
   }
   catch (error) {
+    console.error(error)
     const jsonError = toJSON(error);
     return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
   }
