@@ -1,0 +1,39 @@
+{
+  "name": "sync-stripe-to-moltin",
+  "version": "1.0.0",
+  "author": "Adam Grohs <info@uniquelyparticular.com> (https://uniquelyparticular.com)",
+  "owner": "Particular.",
+  "description": "Please contact Particular. via info@uniquelyparticular.com for any questions",
+  "keywords": [
+    "moltin",
+    "stripe",
+    "webhooks",
+    "microservices",
+    "payment",
+    "ecommerce",
+    "integration",
+    "particular",
+    "particular."
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/uniquelyparticular/sync-stripe-to-moltin#readme",
+  "repository": "github:uniquelyparticular/sync-stripe-to-moltin",
+  "main": "index.js",
+  "scripts": {
+    "dev": "micro-dev",
+    "precommit": "pretty-quick --staged",
+    "start": "micro"
+  },
+  "dependencies": {
+    "@moltin/sdk": "^3.19.0",
+    "micro": "^9.3.3",
+    "micro-cors": "^0.1.1",
+    "stripe": "^6.28.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "micro-dev": "^2.2.2",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  }
+}
