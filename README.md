@@ -58,15 +58,7 @@ The server will typically start on PORT `3000`, if not, make a note for the next
 
 This will expose PORT `3000` to the outside world. 
 
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/uniquelyparticular/sync-stripe-to-moltin)
-
-Once you have the function deployed, take a note of the immutable `now.sh` URL.
-
-
--OR-
-
-
-Start ngrok
+Start ngrok (change ngrok port below from 3000 if yarn dev deployed locally on different port)
 ```bash
 ngrok http 3000
 ```
@@ -76,9 +68,13 @@ Make a note of the `http` URL ngrok provides.
 ## ⛽️ Usage
 Next head over to the Stripe [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area, add a new webhook with the following details:
 
-'URL to be called': <<ngrok URL or now.sh URL>>
+```
+'URL to be called': <'ngrok URL above'>
+
 'Webhook version': '2018-05-21 (Default)'
+
 'Filter event': 'Select types to send' > 'charge.refunded'
+```
 
 ⚠️ Each time a `charge` is `refunded` this function will be called, only need to update moltin if fully refunded (TODO: may want to add transactions for others).
 
