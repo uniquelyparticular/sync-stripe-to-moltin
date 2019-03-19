@@ -3,11 +3,13 @@ const cors = require('micro-cors')({
   exposeHeaders: ['stripe-signature'],
   allowHeaders: ['stripe-signature', 'user-agent', 'x-forwarded-proto', 'X-Requested-With','Access-Control-Allow-Origin','X-HTTP-Method-Override','Content-Type','Authorization','Accept']
 })
+const { MemoryStorageFactory } = require('@moltin/sdk')
 const moltinGateway = require('@moltin/sdk').gateway
 
 const moltin = moltinGateway({
   client_id: process.env.MOLTIN_CLIENT_ID,
   client_secret: process.env.MOLTIN_CLIENT_SECRET,
+  storage: new MemoryStorageFactory(),
   application: 'example-sync-stripe-to-moltin'
 })
 
