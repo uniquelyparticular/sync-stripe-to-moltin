@@ -3,8 +3,8 @@
   "alias": "particular-demo-sync-stripe-to-moltin.now.sh",
   "env": {
     "NODE_ENV": "production",
-    "MOLTIN_CLIENT_ID": "@demo-moltin-secret-key",
-    "MOLTIN_CLIENT_SECRET": "@demo-moltin-secret-key",
+    "MOLTIN_CLIENT_ID": "@demo-moltin-client-id",
+    "MOLTIN_CLIENT_SECRET": "@demo-moltin-client-secret",
     "STRIPE_SECRET_KEY": "@demo-stripe-secret-key",
     "STRIPE_WEBHOOK_SECRET": "@demo-stripe-webhook-secret"
   },
