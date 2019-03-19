@@ -1,5 +1,5 @@
 {
-  "name": "sync-stripe-to-moltin",
+  "name": "@particular./sync-stripe-to-moltin",
   "version": "1.0.0",
   "author": "Adam Grohs <info@uniquelyparticular.com> (https://uniquelyparticular.com)",
   "owner": "Particular.",

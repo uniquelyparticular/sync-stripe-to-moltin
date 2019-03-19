@@ -1,4 +1,4 @@
-# sync-stripe-to-moltin
+# @particular./sync-stripe-to-moltin
 
 > 📦 Update order payment status when refunded in Stripe
 
@@ -16,9 +16,11 @@ const payload = {
     options: {
         customer: stripeCustomer.id  // The Stripe customer ID (required as sending source instead of token above)
 ```
+
             metadata: {
                 order_id: moltinOrder.id
             }
+
 ```
     }
 };
@@ -53,12 +55,12 @@ yarn dev
 
 The server will typically start on PORT `3000`, if not, make a note for the next step.
 
-
 ### Expose the service
 
-This will expose PORT `3000` to the outside world. 
+This will expose PORT `3000` to the outside world.
 
 Start ngrok (change ngrok port below from 3000 if yarn dev deployed locally on different port)
+
 ```bash
 ngrok http 3000
 ```
@@ -66,6 +68,7 @@ ngrok http 3000
 Make a note of the `http` URL ngrok provides.
 
 ## ⛽️ Usage
+
 Next head over to the Stripe [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area, add a new webhook with the following details:
 
 ```
