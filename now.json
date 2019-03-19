@@ -1,7 +1,6 @@
 {
   "name": "demo-sync-stripe-to-moltin",
   "alias": "particular-demo-sync-stripe-to-moltin.now.sh",
-  "dotenv": true,
   "env": {
     "NODE_ENV": "production",
     "MOLTIN_CLIENT_ID": "@demo-moltin-secret-key",
