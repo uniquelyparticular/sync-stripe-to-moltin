@@ -1,4 +1,4 @@
-# moltin-shippo-tracking
+# sync-stripe-to-moltin
 
 > 📦 Update order payment status when refunded in Stripe
 
