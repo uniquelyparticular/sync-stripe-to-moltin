@@ -80,7 +80,7 @@ Next head over to the Stripe [Webhook Settings](https://dashboard.stripe.com/acc
 'Webhook version': '2018-05-21 (Default)'
 'Filter event': 'Select types to send' > 'charge.refunded'
 
-⚠️ Each time an `charge` is `refunded` this function will be called, only need to update moltin if fully refunded (TODO: may want to add transactions for others).
+⚠️ Each time a `charge` is `refunded` this function will be called, only need to update moltin if fully refunded (TODO: may want to add transactions for others).
 
 ## 🚀 Deploy
 
