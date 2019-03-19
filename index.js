@@ -54,17 +54,23 @@ module.exports = cors(async (req, res) => {
     } = await stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
     send(res, 200, JSON.stringify({received: true})) // immediately respond back w/ 200, then continue processing
     // continue processing this event before return
+    console.error('type',type)
+    console.error('status',status)
+    console.error('refunded',refunded)
     if(type === 'charge.refunded' && status === 'succeeded' && refunded === true) { // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
 
+      console.error('order_id',order_id)
       if(order_id) {
         moltin.Transactions.All({ order: order_id }).then(transactions => {
           const moltinTransaction = transactions.data.find(transaction => transaction.reference === reference)
+
+          console.error('moltinTransaction',moltinTransaction)
 
           moltin.Transactions.Refund({
             order: order_id,
             transaction: moltinTransaction.id
           }).then(moltinRefund => {
-            console.log('moltinRefund',moltinRefund)
+            console.error('moltinRefund',moltinRefund)
           }).catch(error=>console.error(error))
         }).catch(error=>console.error(error))
       }
