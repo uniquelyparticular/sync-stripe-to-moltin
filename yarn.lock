@@ -250,19 +250,19 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
   integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
 
-chalk@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.3.2.tgz#250dc96b07491bfd601e648d66ddf5f60c7a5c65"
-  integrity sha512-ZM4j2/ld/YZDc3Ma8PgN7gyAk+kHMMMyzLNryCPGhWrsfAuDVeuid5bpRFTDgMH9JBK2lA4dyyAkkZYF/WcqDQ==
+chalk@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.0.tgz#a060a297a6b57e15b61ca63ce84995daa0fe6e52"
+  integrity sha512-Wr/w0f4o9LuE7K53cD0qmbAMM+2XNLzR29vFn5hqko4sxGlUsyy363NvmyGIyk5tpe9cjTr9SJYbysEyPkRnFw==
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.0.tgz#a060a297a6b57e15b61ca63ce84995daa0fe6e52"
-  integrity sha512-Wr/w0f4o9LuE7K53cD0qmbAMM+2XNLzR29vFn5hqko4sxGlUsyy363NvmyGIyk5tpe9cjTr9SJYbysEyPkRnFw==
+chalk@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
+  integrity sha512-ObN6h1v2fTJSmUXoS3nMQ92LbDK9be4TV+6G+omQlGJFdcUX5heKi1LZ1YnRMIgwTLEj3E24bT6tYni50rlCfQ==
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
@@ -277,10 +277,10 @@ chalk@^2.0.1, chalk@^2.3.0:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chokidar@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.2.tgz#4dc65139eeb2714977735b6a35d06e97b494dfd7"
-  integrity sha512-l32Hw3wqB0L2kGVmSbK/a+xXLDrUEsc84pSgMkmwygHvD7ubRsP/vxxHa5BtB6oix1XLLVCHyYMsckRXxThmZw==
+chokidar@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.3.tgz#dcbd4f6cbb2a55b4799ba8a840ac527e5f4b1176"
+  integrity sha512-zW8iXYZtXMx4kux/nuZVXjkLP+CyIK5Al5FHnj1OgTKGZfp4Oy6/ymtMSKFv3GD8DviEmUPmJg9eFdJ/JzudMg==
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.0"
@@ -294,7 +294,7 @@ chokidar@2.0.2:
     readdirp "^2.0.0"
     upath "^1.0.0"
   optionalDependencies:
-    fsevents "^1.0.0"
+    fsevents "^1.1.2"
 
 chownr@^1.1.1:
   version "1.1.1"
@@ -729,7 +729,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@^1.0.0:
+fsevents@^1.1.2:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.7.tgz#4851b664a3783e52003b3c66eb0eee1074933aa4"
   integrity sha512-Pxm6sI2MeBD7RdD12RYsqaP0nMiwx8eZBXCa6z2L+mRHm2DYrOYwihmhjpkdjUHwQhslWQjRpEgNq4XvBmaAuw==
@@ -1242,35 +1242,24 @@ micro-cors@^0.1.1:
   resolved "https://registry.yarnpkg.com/micro-cors/-/micro-cors-0.1.1.tgz#af7a480182c114ffd1ada84ad9dffc52bb4f4054"
   integrity sha512-6WqIahA5sbQR1Gjexp1VuWGFDKbZZleJb/gy1khNGk18a6iN1FdTcr3Q8twaxkV5H94RjxIBjirYbWCehpMBFw==
 
-micro-dev@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/micro-dev/-/micro-dev-2.2.2.tgz#54094ebeb896e161dec058c12c7fbc382dcbe23b"
-  integrity sha512-DRe3cIqZ/9gX2FcFCdvT/87QxnSLCSpDJqW4rHXnOJsVVYHvYXr1T5sPJIY2Pj8hS+ZYMKO8NKJuKB6Br7hn7A==
+micro-dev@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/micro-dev/-/micro-dev-3.0.0.tgz#cea7ef2b4318765b74004e98ec92ac7e12fcff37"
+  integrity sha512-hxI93KdT7Y8utmVn3NsXqMEKOQj0RpHiY1+PW8rtbiDyd3e/D6NN7OEdG8R0uSFI3GuJbkYN76Z2QTZafyfN/w==
   dependencies:
     boxen "1.3.0"
-    chalk "2.3.2"
-    chokidar "2.0.2"
+    chalk "2.4.1"
+    chokidar "2.0.3"
     clipboardy "1.2.3"
     debounce "1.1.0"
     dotenv "5.0.1"
     get-port "3.2.0"
     ip "1.1.5"
     jsome "2.5.0"
-    micro "9.1.4"
-    mri "1.1.0"
+    mri "1.1.1"
     pkg-up "2.0.0"
     pretty-error "2.1.1"
     string-length "2.0.0"
-
-micro@9.1.4:
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/micro/-/micro-9.1.4.tgz#dbe655f34bb3390509898ddf3fda12348f5cbaa9"
-  integrity sha512-2eQ5QpO33LAPQJ/1iA3BrtLzdYlOCAXlstY4vcIj3SEmv0tsWuNZpsfgn1o8xGAYzf15kb+FXnEx8EklXz+pPg==
-  dependencies:
-    content-type "1.0.4"
-    is-stream "1.1.0"
-    mri "1.1.0"
-    raw-body "2.3.2"
 
 micro@^9.3.3:
   version "9.3.3"
@@ -1354,10 +1343,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mri@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/mri/-/mri-1.1.0.tgz#5c0a3f29c8ccffbbb1ec941dcec09d71fa32f36a"
-  integrity sha1-XAo/KcjM/7ux7JQdzsCdcfoy82o=
+mri@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/mri/-/mri-1.1.1.tgz#85aa26d3daeeeedf80dc5984af95cc5ca5cad9f1"
+  integrity sha1-haom09ru7t+A3FmEr5XMXKXK2fE=
 
 mri@^1.1.0:
   version "1.1.4"
