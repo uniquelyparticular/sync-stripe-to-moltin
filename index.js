@@ -26,10 +26,7 @@ process.on('unhandledRejection', (reason, p) => {
 
 module.exports = cors(async (req, res) => {
   console.error('process.env.NODE_ENV',process.env.NODE_ENV)
-  // if (process.env.NODE_ENV === 'production') {
-  //   console.log = ()=>{};
-  // }
-
+  
   if (req.method === 'OPTIONS') {
     return send(res, 200, 'ok!')
   }
