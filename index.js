@@ -1,5 +1,6 @@
 const { buffer, send } = require('micro')
 const cors = require('micro-cors')({
+  allowMethods: ['POST'],
   exposeHeaders: ['stripe-signature'],
   allowHeaders: ['stripe-signature', 'user-agent', 'x-forwarded-proto', 'X-Requested-With','Access-Control-Allow-Origin','X-HTTP-Method-Override','Content-Type','Authorization','Accept']
 })
