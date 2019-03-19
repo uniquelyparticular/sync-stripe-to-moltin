@@ -23,6 +23,12 @@ const toJSON = (error) => {
   }, { type: 'error' });
 }
 
+const handleError = (res, error) => {
+  console.error(error)
+  const jsonError = toJSON(error);
+  return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
+}
+
 process.on('unhandledRejection', (reason, p) => {
   console.error('Promise unhandledRejection: ', p, ', reason:', JSON.stringify(reason));
 });
@@ -53,40 +59,30 @@ module.exports = cors(async (req, res) => {
         }
       }
     } = await stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
-    console.error('type',type)
-    console.error('status',status)
-    console.error('refunded',refunded)
+    console.info('type',type)
+    console.info('status',status)
+    console.info('refunded',refunded)
     if(type === 'charge.refunded' && status === 'succeeded' && refunded === true) { // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
 
-      console.error('order_id',order_id)
+      console.info('order_id',order_id)
       if(order_id) {
         moltin.Transactions.All({ order: order_id }).then(transactions => {
           const moltinTransaction = transactions.data.find(transaction => transaction.reference === reference)
 
-          console.error('moltinTransaction',moltinTransaction)
+          console.info('moltinTransaction',moltinTransaction)
 
           moltin.Transactions.Refund({
             order: order_id,
             transaction: moltinTransaction.id
           }).then(moltinRefund => {
-            console.error('moltinRefund',moltinRefund)
+            console.info('moltinRefund',moltinRefund)
             return send(res, 200, JSON.stringify({received: true}))
-          }).catch(error => {
-            console.error(error)
-            const jsonError = toJSON(error);
-            return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
-          })
-        }).catch(error => {
-          console.error(error)
-          const jsonError = toJSON(error);
-          return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
-        })
+          }).catch(error => handleError(error))
+        }).catch(error => handleError(error))
       }
     }
   }
   catch (error) {
-    console.error(error)
-    const jsonError = toJSON(error);
-    return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
+    handleError(error)
   }
 })
