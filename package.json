@@ -24,6 +24,11 @@
     "precommit": "pretty-quick --staged",
     "start": "micro"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "@moltin/sdk": "^3.19.0",
     "micro": "^9.3.3",
