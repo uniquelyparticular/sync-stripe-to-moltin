@@ -15,7 +15,7 @@ const payload = {
     method: 'purchase',
     payment: stripeSource.id, // The Stripe source (refunds don't work on tokens)
     options: {
-        customer: stripeCustomer.id  // The Stripe customer ID (required as sending source instead of token above)
+        customer: stripeCustomer.id  // The Stripe customer ID (required as sending source above)
 ```
 
             metadata: {
