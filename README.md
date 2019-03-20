@@ -66,7 +66,7 @@ Start ngrok (change ngrok port below from 3000 if yarn dev deployed locally on d
 ngrok http 3000
 ```
 
-Make a note of the `http` URL ngrok provides.
+Make a note of the https 'URL' ngrok provides.
 
 ## ⛽️ Usage
 
