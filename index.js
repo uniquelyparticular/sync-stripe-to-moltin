@@ -35,16 +35,6 @@ const _toJSON = error => {
       )
 }
 
-const handleError = (res, error) => {
-  console.error(error)
-  const jsonError = _toJSON(error)
-  return send(
-    res,
-    jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
-    jsonError
-  )
-}
-
 process.on('unhandledRejection', (reason, p) => {
   console.error(
     'Promise unhandledRejection: ',
@@ -99,11 +89,32 @@ module.exports = cors(async (req, res) => {
             .then(moltinRefund => {
               return send(res, 200, JSON.stringify({ received: true }))
             })
-            .catch(error => handleError(error))
+            .catch(error => {
+              const jsonError = _toJSON(error)
+              return send(
+                res,
+                jsonError.type === 'StripeSignatureVerificationError'
+                  ? 401
+                  : 500,
+                jsonError
+              )
+            })
         })
-        .catch(error => handleError(error))
+        .catch(error => {
+          const jsonError = _toJSON(error)
+          return send(
+            res,
+            jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+            jsonError
+          )
+        })
     }
   } catch (error) {
-    handleError(error)
+    const jsonError = _toJSON(error)
+    return send(
+      res,
+      jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+      jsonError
+    )
   }
 })
