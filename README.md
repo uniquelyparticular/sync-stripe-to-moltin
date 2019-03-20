@@ -6,30 +6,6 @@ Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webh
 
 Built with [Micro](https://github.com/zeit/micro)! 🤩
 
-## PREREQUISITE
-
-NOTE: when making calls to 'moltin.Orders.Payment', please ensure payload contains 'metadata' containing order and customer data
-
-```
-const payload = {
-    gateway: 'stripe',
-    method: 'purchase',
-    payment: stripeSource.id, // The Stripe source (refunds don't work on tokens)
-    options: {
-        customer: stripeCustomer.id  // The Stripe customer ID (required as sending source above)
-```
-
-            metadata: {
-                order_id: moltinOrder.id
-            }
-
-```
-    }
-};
-
-return moltin.Orders.Payment(moltinOrder.id, payload) ...
-```
-
 ## 🛠 Setup
 
 Both a [moltin](https://moltin.com) _and_ [Stripe](https://stripe.com) account are needed for this to function.
