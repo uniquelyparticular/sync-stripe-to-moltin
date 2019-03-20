@@ -1,41 +1,60 @@
 const { buffer, send } = require('micro')
-const cors = require('micro-cors')({
-  allowMethods: ['POST'],
-  exposeHeaders: ['stripe-signature'],
-  allowHeaders: ['stripe-signature', 'user-agent', 'x-forwarded-proto', 'X-Requested-With','Access-Control-Allow-Origin','X-HTTP-Method-Override','Content-Type','Authorization','Accept']
-})
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const { MemoryStorageFactory } = require('@moltin/sdk')
 const moltinGateway = require('@moltin/sdk').gateway
-
 const moltin = moltinGateway({
   client_id: process.env.MOLTIN_CLIENT_ID,
   client_secret: process.env.MOLTIN_CLIENT_SECRET,
   storage: new MemoryStorageFactory(),
-  application: 'example-sync-stripe-to-moltin'
+  application: 'demo-sync-stripe-to-moltin'
+})
+const cors = require('micro-cors')({
+  allowMethods: ['POST'],
+  exposeHeaders: ['stripe-signature'],
+  allowHeaders: [
+    'stripe-signature',
+    'user-agent',
+    'x-forwarded-proto',
+    'X-Requested-With',
+    'Access-Control-Allow-Origin',
+    'X-HTTP-Method-Override',
+    'Content-Type',
+    'Authorization',
+    'Accept'
+  ]
 })
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-
-const toJSON = (error) => {
-  console.log('error', error)
-  return (!error)?'':Object.getOwnPropertyNames(error).reduce((jsonError, key) => {
-    return { ...jsonError, [key]: error[key]}
-  }, { type: 'error' });
+const _toJSON = error => {
+  return !error
+    ? ''
+    : Object.getOwnPropertyNames(error).reduce(
+        (jsonError, key) => {
+          return { ...jsonError, [key]: error[key] }
+        },
+        { type: 'error' }
+      )
 }
 
 const handleError = (res, error) => {
   console.error(error)
-  const jsonError = toJSON(error);
-  return send(res, (jsonError.type === 'StripeSignatureVerificationError') ? 401: 500, jsonError)
+  const jsonError = _toJSON(error)
+  return send(
+    res,
+    jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+    jsonError
+  )
 }
 
 process.on('unhandledRejection', (reason, p) => {
-  console.error('Promise unhandledRejection: ', p, ', reason:', JSON.stringify(reason));
-});
+  console.error(
+    'Promise unhandledRejection: ',
+    p,
+    ', reason:',
+    JSON.stringify(reason)
+  )
+})
 
 module.exports = cors(async (req, res) => {
-  console.error('process.env.NODE_ENV',process.env.NODE_ENV)
-  
   if (req.method === 'OPTIONS') {
     return send(res, 200, 'ok!')
   }
@@ -52,37 +71,41 @@ module.exports = cors(async (req, res) => {
           id: reference,
           status,
           refunded,
-          metadata: {
-            email,
-            order_id
-          }
+          metadata: { email, order_id }
         }
       }
-    } = await stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
-    console.info('type',type)
-    console.info('status',status)
-    console.info('refunded',refunded)
-    if(type === 'charge.refunded' && status === 'succeeded' && refunded === true) { // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
+    } = await stripe.webhooks.constructEvent(
+      body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    )
 
-      console.info('order_id',order_id)
-      if(order_id) {
-        moltin.Transactions.All({ order: order_id }).then(transactions => {
-          const moltinTransaction = transactions.data.find(transaction => transaction.reference === reference)
+    if (
+      type === 'charge.refunded' &&
+      status === 'succeeded' &&
+      refunded === true
+    ) {
+      // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
+      if (order_id) {
+        moltin.Transactions.All({ order: order_id })
+          .then(transactions => {
+            const moltinTransaction = transactions.data.find(
+              transaction => transaction.reference === reference
+            )
 
-          console.info('moltinTransaction',moltinTransaction)
-
-          moltin.Transactions.Refund({
-            order: order_id,
-            transaction: moltinTransaction.id
-          }).then(moltinRefund => {
-            console.info('moltinRefund',moltinRefund)
-            return send(res, 200, JSON.stringify({received: true}))
-          }).catch(error => handleError(error))
-        }).catch(error => handleError(error))
+            moltin.Transactions.Refund({
+              order: order_id,
+              transaction: moltinTransaction.id
+            })
+              .then(moltinRefund => {
+                return send(res, 200, JSON.stringify({ received: true }))
+              })
+              .catch(error => handleError(error))
+          })
+          .catch(error => handleError(error))
       }
     }
-  }
-  catch (error) {
+  } catch (error) {
     handleError(error)
   }
 })

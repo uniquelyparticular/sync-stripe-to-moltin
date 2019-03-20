@@ -1,33 +1,10 @@
 # @particular./sync-stripe-to-moltin
 
-> Update order payment status when refunded in Stripe
+> Update Moltin order payment status when refunded in Stripe
 
 Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [moltin](https://moltin.com).
+
 Built with [Micro](https://github.com/zeit/micro)! 🤩
-
-## PREREQUISITE
-
-NOTE: when making calls to 'moltin.Orders.Payment', please ensure payload contains 'metadata' containing order and customer data
-
-```
-const payload = {
-    gateway: 'stripe',
-    method: 'purchase',
-    payment: stripeSource.id, // The Stripe source (refunds don't work on tokens)
-    options: {
-        customer: stripeCustomer.id  // The Stripe customer ID (required as sending source above)
-```
-
-            metadata: {
-                order_id: moltinOrder.id
-            }
-
-```
-    }
-};
-
-return moltin.Orders.Payment(moltinOrder.id, payload) ...
-```
 
 ## 🛠 Setup
 
@@ -76,13 +53,9 @@ Make a note of the https 'URL' ngrok provides.
 
 Next head over to the Stripe [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area, add a new webhook with the following details:
 
-```
-'URL to be called': <ngrok URL above>
-
-'Webhook version': '2018-05-21 (Default)'
-
-'Filter event': 'Select types to send' > 'charge.refunded'
-```
+| URL to be called    | Webhook version        | Filter event                               |
+| ------------------- | ---------------------- | ------------------------------------------ |
+| _`ngrok URL` above_ | `2018-05-21 (Default)` | 'Select types to send' > `charge.refunded` |
 
 ⚠️ Each time a `charge` is `refunded` this function will be called, but it will only call moltin to update order if 'fully refunded' in Stripe (TODO: if Moltin add support for order.payment = partial_refund then can update to handle).
 
