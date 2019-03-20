@@ -5,7 +5,7 @@
 Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [moltin](https://moltin.com).
 Built with [Micro](https://github.com/zeit/micro)! 🤩
 
-## **Prerequisite**
+## PREREQUISITE
 
 NOTE: when making calls to 'moltin.Orders.Payment', please ensure payload contains 'metadata' containing order and customer data
 
@@ -48,7 +48,7 @@ Find your `STRIPE_WEBHOOK_SECRET` inside of your deployed endpoint within Stripe
 
 Find your `STRIPE_SECRET_KEY` within Stripe's [API Settings](https://dashboard.stripe.com/account/apikeys).
 
-### 📦 Package application and start the server
+## 📦 Package
 
 Run the following command to build the app
 
