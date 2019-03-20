@@ -2,7 +2,7 @@
 
 > 📦 Update order payment status when refunded in Stripe
 
-Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [Moltin](https://moltin.com).
+Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [moltin](https://moltin.com).
 Built with [Micro](https://github.com/zeit/micro)! 🤩
 
 ### Prerequisite
@@ -31,9 +31,13 @@ return moltin.Orders.Payment(moltinOrder.id, payload) ...
 
 ## 🛠 Setup
 
-Both a moltin _and_ Stripe account are needed for this to function.
+Both a [moltin](https://moltin.com) _and_ [Stripe](https://stripe.com) account are needed for this to function.
 
-Create a `.env` at the project root with the following credentials.
+Create a `.env` at the project root with the following credentials:
+
+Find your `MOLTIN_CLIENT_ID` and `MOLTIN_CLIENT_SECRET` inside of your [moltin Dashboard](https://dashboard.moltin.com)'s API keys.
+Find your `STRIPE_WEBHOOK_SECRET` inside of your deployed endpoint within Stripe's [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area.
+Find your `STRIPE_SECRET_KEY` within Stripe's [API Settings](https://dashboard.stripe.com/account/apikeys).
 
 ```dosini
 MOLTIN_CLIENT_ID=
@@ -41,6 +45,8 @@ MOLTIN_CLIENT_SECRET=
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 ```
+
+Run the following command to build the app
 
 ```bash
 yarn install
