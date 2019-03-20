@@ -35,16 +35,18 @@ Both a [moltin](https://moltin.com) _and_ [Stripe](https://stripe.com) account a
 
 Create a `.env` at the project root with the following credentials:
 
-Find your `MOLTIN_CLIENT_ID` and `MOLTIN_CLIENT_SECRET` inside of your [moltin Dashboard](https://dashboard.moltin.com)'s API keys.
-Find your `STRIPE_WEBHOOK_SECRET` inside of your deployed endpoint within Stripe's [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area.
-Find your `STRIPE_SECRET_KEY` within Stripe's [API Settings](https://dashboard.stripe.com/account/apikeys).
-
 ```dosini
 MOLTIN_CLIENT_ID=
 MOLTIN_CLIENT_SECRET=
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 ```
+
+Find your `MOLTIN_CLIENT_ID` and `MOLTIN_CLIENT_SECRET` inside of your [moltin Dashboard](https://dashboard.moltin.com)'s API keys.
+
+Find your `STRIPE_WEBHOOK_SECRET` inside of your deployed endpoint within Stripe's [Webhook Settings](https://dashboard.stripe.com/account/webhooks) area.
+
+Find your `STRIPE_SECRET_KEY` within Stripe's [API Settings](https://dashboard.stripe.com/account/apikeys).
 
 Run the following command to build the app
 
