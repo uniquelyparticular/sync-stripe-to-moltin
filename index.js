@@ -35,16 +35,6 @@ const _toJSON = error => {
       )
 }
 
-const handleError = (res, error) => {
-  console.error(error)
-  const jsonError = _toJSON(error)
-  return send(
-    res,
-    jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
-    jsonError
-  )
-}
-
 process.on('unhandledRejection', (reason, p) => {
   console.error(
     'Promise unhandledRejection: ',
@@ -63,7 +53,6 @@ module.exports = cors(async (req, res) => {
     const sig = await req.headers['stripe-signature']
     const body = await buffer(req)
 
-    // NOTE: expects metadata field to be populated w/ moltin order data when charges were first created, email is automatically there
     const {
       type,
       data: {
@@ -81,31 +70,51 @@ module.exports = cors(async (req, res) => {
     )
 
     if (
+      order_id &&
       type === 'charge.refunded' &&
       status === 'succeeded' &&
       refunded === true
     ) {
       // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
-      if (order_id) {
-        moltin.Transactions.All({ order: order_id })
-          .then(transactions => {
-            const moltinTransaction = transactions.data.find(
-              transaction => transaction.reference === reference
-            )
+      moltin.Transactions.All({ order: order_id })
+        .then(transactions => {
+          const moltinTransaction = transactions.data.find(
+            transaction => transaction.reference === reference
+          )
 
-            moltin.Transactions.Refund({
-              order: order_id,
-              transaction: moltinTransaction.id
-            })
-              .then(moltinRefund => {
-                return send(res, 200, JSON.stringify({ received: true }))
-              })
-              .catch(error => handleError(error))
+          moltin.Transactions.Refund({
+            order: order_id,
+            transaction: moltinTransaction.id
           })
-          .catch(error => handleError(error))
-      }
+            .then(moltinRefund => {
+              return send(res, 200, JSON.stringify({ received: true }))
+            })
+            .catch(error => {
+              const jsonError = _toJSON(error)
+              return send(
+                res,
+                jsonError.type === 'StripeSignatureVerificationError'
+                  ? 401
+                  : 500,
+                jsonError
+              )
+            })
+        })
+        .catch(error => {
+          const jsonError = _toJSON(error)
+          return send(
+            res,
+            jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+            jsonError
+          )
+        })
     }
   } catch (error) {
-    handleError(error)
+    const jsonError = _toJSON(error)
+    return send(
+      res,
+      jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+      jsonError
+    )
   }
 })
