@@ -1,5 +1,7 @@
 # @particular./sync-stripe-to-moltin
 
+[![npm version](https://badge.fury.io/js/%40particular.%2Fsync-stripe-to-moltin.svg)](https://badge.fury.io/js/%40particular.%2Fsync-stripe-to-moltin)
+
 > Update Moltin order payment status when refunded in Stripe
 
 Asynchronous microservice that is triggered by [Stripe](https://stripe.com) webhooks to update Order data inside of [moltin](https://moltin.com).
