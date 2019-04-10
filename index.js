@@ -97,9 +97,7 @@ module.exports = cors(async (req, res) => {
                 const jsonError = _toJSON(error)
                 return send(
                   res,
-                  jsonError.type === 'StripeSignatureVerificationError'
-                    ? 401
-                    : 500,
+                  jsonError.errors[0].status ? jsonError.errors[0].status : 500,
                   jsonError
                 )
               })
@@ -108,7 +106,7 @@ module.exports = cors(async (req, res) => {
             const jsonError = _toJSON(error)
             return send(
               res,
-              jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+              jsonError.errors[0].status ? jsonError.errors[0].status : 500,
               jsonError
             )
           })
