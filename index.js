@@ -69,45 +69,59 @@ module.exports = cors(async (req, res) => {
       process.env.STRIPE_WEBHOOK_SECRET
     )
 
-    if (
-      order_id &&
-      type === 'charge.refunded' &&
-      status === 'succeeded' &&
-      refunded === true
-    ) {
-      // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
-      moltin.Transactions.All({ order: order_id })
-        .then(transactions => {
-          const moltinTransaction = transactions.data.find(
-            transaction => transaction.reference === reference
-          )
+    if (order_id) {
+      if (
+        type === 'charge.refunded' &&
+        status === 'succeeded' &&
+        refunded === true
+      ) {
+        // if refunded !== true, then only partial (moltin Order.Payment does not support partial_refund status)
+        moltin.Transactions.All({ order: order_id })
+          .then(transactions => {
+            const moltinTransaction = transactions.data.find(
+              transaction => transaction.reference === reference
+            )
 
-          moltin.Transactions.Refund({
-            order: order_id,
-            transaction: moltinTransaction.id
+            moltin.Transactions.Refund({
+              order: order_id,
+              transaction: moltinTransaction.id
+            })
+              .then(moltinRefund => {
+                return send(
+                  res,
+                  200,
+                  JSON.stringify({ received: true, order_id })
+                )
+              })
+              .catch(error => {
+                const jsonError = _toJSON(error)
+                return send(
+                  res,
+                  jsonError.type === 'StripeSignatureVerificationError'
+                    ? 401
+                    : 500,
+                  jsonError
+                )
+              })
           })
-            .then(moltinRefund => {
-              return send(res, 200, JSON.stringify({ received: true }))
-            })
-            .catch(error => {
-              const jsonError = _toJSON(error)
-              return send(
-                res,
-                jsonError.type === 'StripeSignatureVerificationError'
-                  ? 401
-                  : 500,
-                jsonError
-              )
-            })
-        })
-        .catch(error => {
-          const jsonError = _toJSON(error)
-          return send(
-            res,
-            jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
-            jsonError
-          )
-        })
+          .catch(error => {
+            const jsonError = _toJSON(error)
+            return send(
+              res,
+              jsonError.type === 'StripeSignatureVerificationError' ? 401 : 500,
+              jsonError
+            )
+          })
+      } else {
+        return send(res, 200, JSON.stringify({ received: true, order_id }))
+      }
+    } else {
+      console.error('missing order_id')
+      return send(
+        res,
+        200,
+        JSON.stringify({ received: true, order_id: 'null' })
+      )
     }
   } catch (error) {
     const jsonError = _toJSON(error)
