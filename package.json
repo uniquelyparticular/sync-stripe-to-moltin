@@ -39,7 +39,7 @@
     "stripe": "^6.28.0"
   },
   "devDependencies": {
-    "husky": "2.0.0",
+    "husky": "2.1.0",
     "jest": "24.7.1",
     "micro-dev": "3.0.0",
     "prettier": "1.17.0",
