@@ -1,6 +1,7 @@
 {
+  "version": 2,
   "name": "demo-sync-stripe-to-moltin",
-  "alias": "particular-demo-sync-stripe-to-moltin.now.sh",
+  "alias": "particular-sync-stripe-to-moltin.now.sh",
   "env": {
     "NODE_ENV": "production",
     "MOLTIN_CLIENT_ID": "@demo-moltin-client-id",
