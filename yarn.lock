@@ -285,10 +285,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@moltin/sdk@3.21.0":
-  version "3.21.0"
-  resolved "https://registry.yarnpkg.com/@moltin/sdk/-/sdk-3.21.0.tgz#3045db96cb9d5d52258ae328f5fb6057ec43ef11"
-  integrity sha512-8Isg2di/i9eYFMNjrQo08Xe/KO7sLDHR5lzzNymolOPs5LOEldLIssKN3cyZqDt+I5PFU1M9T3OmLGrn/H228w==
+"@moltin/sdk@3.24.1":
+  version "3.24.1"
+  resolved "https://registry.yarnpkg.com/@moltin/sdk/-/sdk-3.24.1.tgz#eb1f8ec83cd1a94e63aa2650a73514c16d084139"
+  integrity sha512-papb8QAEQSbXp0E+pJQGwCUUR8bT4WD9FeSZoB2tculOw0Az4ukb7AL1050qMvpGC5mdT4OLjx2npTDSXhTjOg==
   dependencies:
     es6-promise "^4.0.5"
     fetch-everywhere "^1.0.5"
