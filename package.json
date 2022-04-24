@@ -36,7 +36,7 @@
     "@moltin/sdk": "3.21.0",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
-    "stripe": "7.1.0"
+    "stripe": "8.219.0"
   },
   "devDependencies": {
     "husky": "2.4.0",
